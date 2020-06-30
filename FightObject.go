@@ -2,7 +2,6 @@ package GameFight
 
 import (
 	"errors"
-	"fmt"
 	"math/rand"
 )
 
@@ -60,19 +59,16 @@ func (f *FightObject) HeartBeat(uTime int) bool {
 	}
 
 	f.fightDistance += f.GetAttackSpeed()
-	//TODO 读表
-	nDistance := 10
-	//fmt.Printf("英雄:%+v 战斗条:%+v \n", f.GetGuid(), f.fightDistance)
+	nDistance := 100
 	if f.fightDistance >= nDistance {
 		f.fightDistance = 0
 
 		bRet := f.SkillHeartBeat(uTime)
-		fmt.Printf("英雄:%+v 技能攻击:%+v \n", f.GetGuid(), bRet)
 		if !bRet {
 			bRet = f.CastCommonSkill(uTime)
-			fmt.Printf("英雄:%+v 普通攻击:%+v \n", f.GetGuid(), bRet)
 		}
 	}
+	//fmt.Printf("英雄: %+v 战斗条:%+v 是否触发攻击:%+v \n", f.GetGuid(), f.fightDistance, f.fightDistance >= nDistance)
 
 	if pFObjectInfo != nil {
 		pFObjectInfo.EndDistance = f.fightDistance
@@ -82,7 +78,7 @@ func (f *FightObject) HeartBeat(uTime int) bool {
 		if pFObjectInfo.MaxMP < f.GetMaxMP() {
 			pFObjectInfo.MaxMP = f.GetMaxMP()
 		}
-		fmt.Println(pFObjectInfo.String())
+		//fmt.Println(pFObjectInfo.String())
 	}
 	return true
 }
@@ -194,7 +190,7 @@ func (f *FightObject) SetMP(nMP int) {
 	f.FightDBData.Mp = nMP
 }
 
-func (f FightObject) GetAttackInfo() *AttackInfo {
+func (f *FightObject) GetAttackInfo() *AttackInfo {
 	if f.attackInfo == nil {
 		f.attackInfo = new(AttackInfo)
 	}

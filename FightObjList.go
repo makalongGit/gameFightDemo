@@ -1,7 +1,5 @@
 package GameFight
 
-import "fmt"
-
 type FightObjList struct {
 	mOwnerGuid  X_GUID
 	mObjectList [MaxMatrixCellCount]*FightObject
@@ -94,7 +92,7 @@ func (list *FightObjList) ImpactHeartBeat(uTime int) {
 func (list *FightObjList) HeartBeat(uTime int) {
 	for i := 0; i < MaxMatrixCellCount; i++ {
 		if list.mObjectList[i].IsActive() {
-			fmt.Printf("第%+v回合, 英雄id %+v \n",uTime, list.mObjectList[i].GetGuid())
+			//fmt.Printf("第%+v回合, 英雄id %+v \n",uTime, list.mObjectList[i].GetGuid())
 			list.mObjectList[i].HeartBeat(uTime)
 			pAttackInfo := list.mObjectList[i].GetAttackInfo()
 			if pAttackInfo != nil && pAttackInfo.IsValid() {

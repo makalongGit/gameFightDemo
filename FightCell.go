@@ -1,5 +1,7 @@
 package GameFight
 
+import "fmt"
+
 type FightCell struct {
 	mAttackList  *FightObjList   //攻击方
 	mDefenceList *FightObjList   //防御方
@@ -153,12 +155,13 @@ func (f *FightCell) Fight() bool {
 			}
 			return true
 		}
-		//fmt.Println("回合:",nRound)
+		fmt.Printf("第%+v回合:\n", nRound)
 		f.initRoundInfo()
 		f.mAttackList.ImpactHeartBeat(nRound)
 		f.mDefenceList.ImpactHeartBeat(nRound)
 		f.mAttackList.HeartBeat(nRound)
 		f.mDefenceList.HeartBeat(nRound)
+		fmt.Println(f.mRoundInfo.String())
 		f.mFightInfo.AddRoundInfo(*f.mRoundInfo)
 		//spew.Dump(f.mRoundInfo.AttackInfo)
 	}

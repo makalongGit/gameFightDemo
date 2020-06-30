@@ -166,8 +166,14 @@ type AttackInfo struct {
 }
 
 func (c AttackInfo) String() string {
-	return fmt.Sprintf("英雄%+v 攻击了英雄%+v, 命中:%+v,暴击:%+v,伤害:%+v, 反击:%+v, 反击伤害:%+v",
-		c.CastGuid, c.SkillTarget, c.BHit, c.BStrike, c.Hurt, c.BBackAttack, c.BackAttackHurt)
+	return fmt.Sprintf("攻击方英雄id: %+v  防守方英雄id: %+v, \n"+
+		"是否使用了技能攻击 %+v,"+
+		"是否命中:%+v,"+
+		"是否暴击:%+v,\n"+
+		"攻击伤害:%+v, "+
+		"是否有反击:%+v, "+
+		"反击伤害:%+v\n",
+		c.CastGuid, c.SkillTarget, c.Skilled, c.BHit, c.BStrike, c.Hurt, c.BBackAttack, c.BackAttackHurt)
 }
 
 func (c *AttackInfo) GetSkillAttack(SkillID int) *SkillAttack {
@@ -231,7 +237,7 @@ type FObjectInfo struct {
 }
 
 func (f *FObjectInfo) String() string {
-	return fmt.Sprintf("英雄id %+v \n"+
+	return fmt.Sprintf("英雄id: %+v 信息\n"+
 		"HP:%+v MP:%+v MaxHP:%+v MaxMP:%+v \n"+
 		"战斗条长度:%+v 速度:%+v 最后战斗条位置:%+v impact列表: %+v \n",
 		f.Guid, f.HP, f.MP, f.MaxHP, f.MaxMP, f.FightDistance, f.AttackSpeed, f.EndDistance, f.ImpactList)
@@ -257,6 +263,23 @@ type FightRoundInfo struct {
 
 	AttackInfo   [MaxMatrixCellCount * 2]AttackInfo //出手数据
 	AttInfoCount int
+}
+
+func (f *FightRoundInfo) String() string {
+
+	var s string = "攻击方战前信息:\n"
+	for i := 0; i < f.AttackObjectCount; i++ {
+		s += f.AttackObjectInfo[i].String() + ""
+	}
+	s += "防守方战前信息:\n"
+	for i := 0; i < f.DefendObjectCount; i++ {
+		s += f.DefendObjectInfo[i].String() + ""
+	}
+	s += "攻击信息\n"
+	for i := 0; i < f.AttInfoCount; i++ {
+		s += f.AttackInfo[i].String() + ""
+	}
+	return s
 }
 
 func (f *FightRoundInfo) CleanUp() {
@@ -285,7 +308,7 @@ func (f *FightRoundInfo) AddDefendObjectInfo(objInfo *FObjectInfo) {
 
 func (f *FightRoundInfo) AddAttackInfo(attackInfo AttackInfo) {
 	f.AttackInfo[f.AttInfoCount] = attackInfo
-	f.AttackObjectCount++
+	f.AttInfoCount++
 }
 
 func (f *FightRoundInfo) GetFObjectInfoByGuid(guid X_GUID) *FObjectInfo {

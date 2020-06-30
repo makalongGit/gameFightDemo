@@ -666,11 +666,10 @@ func (s *Skill) CommonSkillLogic(nRound int) bool {
 		//反击伤害=自身攻击*反击衰减
 		backAttack := s.pTarget.GetPhysicAttack() * s.pTarget.GetBackAttHurt() / 100
 		s.pCaster.SetHP(s.pCaster.GetHP() - backAttack)
-
 		pAttackInfo.BBackAttack = true
 		pAttackInfo.BackAttackHurt = backAttack
 	}
 
-	fmt.Println(pAttackInfo.String())
+	//fmt.Println(pAttackInfo.String())
 	return true
 }
