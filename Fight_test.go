@@ -19,14 +19,14 @@ func TestFightCell_Fight(t *testing.T) {
 		mOwnerGuid:  1,
 		mObjectList: [6]*FightObject{},
 	}
-	attackerHeroList := [MaxMatrixCellCount]int{1, 3, 5, 7, 9, 11}
+	attackerHeroList := [MaxMatrixCellCount]int{9}
 	fightCell.mAttackList = &attackObjList
 	defendObjList := FightObjList{
 		mOwnerGuid:  1,
 		mObjectList: [6]*FightObject{},
 	}
 	fightCell.mDefenceList = &defendObjList
-	defendHeroList := [MaxMatrixCellCount]int{2, 4, 6, 8, 10, 12}
+	defendHeroList := [MaxMatrixCellCount]int{10}
 	FillFightObjList(attackerHeroList, fightCell.GetAttackList())
 	FillFightObjList(defendHeroList, fightCell.GetDefenceList())
 	fightCell.InitAttackList()
@@ -98,4 +98,10 @@ func FillFightObjByCfg(heroId int, fightObject *FightObject) bool {
 func TestX_GUID_IsValid(t *testing.T) {
 	guid := X_GUID(2)
 	fmt.Println(guid.IsValid())
+}
+
+func TestFuncInArr(t *testing.T){
+	arr := [2]func(){func(){ fmt.Println(1)}, func(){ fmt.Println(2)}}
+	arr[1]()
+
 }

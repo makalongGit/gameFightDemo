@@ -25,6 +25,7 @@ const (
 	MaxBuffNumber            int = 10  //强化类buff数量
 	MaxDeBuffNumber          int = 10  //削弱类buff数量
 	MAX_FIGHT_ROUND          int = 128 //最大战斗回合
+	Distance int = 10
 
 )
 

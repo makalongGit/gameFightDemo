@@ -3,7 +3,6 @@ package GameFight
 import (
 	"errors"
 	"fmt"
-	"github.com/davecgh/go-spew/spew"
 	"math/rand"
 )
 
@@ -17,8 +16,8 @@ type Skill struct {
 }
 
 func (s Skill) String() string {
-	return fmt.Sprintf("施放者 %+v 使用技能id %+v 目标%+v [技能类型 %+v 技能时间 %+v 技能冷却时间 %+v]",
-		s.pCaster, s.skillID, s.pTarget, s.skillType, s.skillTime, s.coolDownTime)
+	return fmt.Sprintf("施放者 %+v 使用技能id %+v [技能类型 %+v 技能时间 %+v 技能冷却时间 %+v]",
+		s.pCaster.GetGuid(), s.skillID, s.skillType, s.skillTime, s.coolDownTime)
 }
 
 func (s Skill) GetSkillRow() (TableRowSkill, error) {
@@ -425,7 +424,7 @@ func (s *Skill) CastSkill(nRound int) bool {
 		pRowImpact   TableRowImpact
 		pAttackInfo  *AttackInfo
 		pSkillAttack *SkillAttack
-		impactInfo   ImpactInfo
+		impactInfo   *ImpactInfo
 		targetList   *TargetList
 	)
 	pRow, err := s.GetSkillRow()
@@ -440,6 +439,7 @@ func (s *Skill) CastSkill(nRound int) bool {
 	pAttackInfo.Skilled = true
 	pSkillAttack = pAttackInfo.AllocSkillAttack()
 	if pSkillAttack == nil {
+		fmt.Println("技能攻击信息为空")
 		return false
 	}
 	pSkillAttack.SkillID = s.skillID
@@ -458,7 +458,7 @@ func (s *Skill) CastSkill(nRound int) bool {
 			if !(pRowImpact.LogicID == 0 || pRowImpact.LogicID == 1) {
 				nConAttTimes = 0
 			}
-			impactInfo = ImpactInfo{}
+			impactInfo = new(ImpactInfo)
 			impactInfo.SkillID = s.skillID
 			impactInfo.ImpactID = pRow.ImpactID[i]
 			impactInfo.ConAttTimes = nConAttTimes
@@ -475,14 +475,14 @@ func (s *Skill) CastSkill(nRound int) bool {
 					impactInfo.TargetCount++
 				}
 			}
-			pSkillAttack.AddImpactInfo(&impactInfo)
+			pSkillAttack.AddImpactInfo(impactInfo)
 			for index := 0; index < targetList.GetCount(); index++ {
 				pTarget := targetList.GetFightObject(index)
 				if pTarget != nil && pTarget.IsActive() {
+					fmt.Println(pRow.ImpactID[i])
 					pTarget.AddImpact(pRow.ImpactID[i], nConAttTimes, nRound, s.skillID, s.pCaster)
 				}
 			}
-			spew.Dump(pSkillAttack)
 		}
 	}
 	return true
@@ -492,18 +492,23 @@ func (s *Skill) CastSkill(nRound int) bool {
 func (s *Skill) SkillLogic(nRound int) bool {
 	bRet := s.IsValid()
 	if bRet == false {
+		fmt.Println("技能id不合法")
 		return false
 	}
 	bRet = s.CheckCondition(nRound)
 	if bRet == false {
+		//fmt.Println("技能达不到释放要求")
 		return false
 	}
 	bRet = s.SelectTarget()
 	if bRet == false {
+		fmt.Println("目标选择错误")
 		return false
 	}
+	//fmt.Printf("技能信息: %+v \n", s.String())
 	bRet = s.CastSkill(nRound)
 	if bRet == false {
+		fmt.Println("技能逻辑错误")
 		return false
 	}
 	return true

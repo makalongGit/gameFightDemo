@@ -59,11 +59,12 @@ func (f *FightObject) HeartBeat(uTime int) bool {
 	}
 
 	f.fightDistance += f.GetAttackSpeed()
-	nDistance := 100
+	nDistance := Distance
 	if f.fightDistance >= nDistance {
 		f.fightDistance = 0
 
 		bRet := f.SkillHeartBeat(uTime)
+		//fmt.Println("释放技能", bRet)
 		if !bRet {
 			bRet = f.CastCommonSkill(uTime)
 		}
@@ -413,13 +414,9 @@ func (f *FightObject) GetImpactLogicType(nImpactID int) EmTypeImpactLogic {
 		panic(err)
 	}
 	switch pRowImpact.LogicID {
-	case EmImpactLogic0:
-	case EmImpactLogic1:
-	case EmImpactLogic6:
+	case EmImpactLogic0, EmImpactLogic1, EmImpactLogic6:
 		return EmTypeImpactLogicSingle
-	case EmImpactLogic2:
-	case EmImpactLogic3:
-	case EmImpactLogic5:
+	case EmImpactLogic2, EmImpactLogic3, EmImpactLogic5:
 		return EmTypeImpactLogicDeBuff
 	case EmImpactLogic4:
 		return EmTypeImpactLogicBuff
@@ -549,6 +546,9 @@ func (f *FightObject) ClearImpact() bool {
 
 func (f *FightObject) IsValid() bool {
 	//fmt.Println(f.FightDBData.Guid)
+	if f == nil {
+		return false
+	}
 	return f.FightDBData.Guid.IsValid()
 }
 

@@ -47,7 +47,7 @@ func (impact Impact) IsValid() bool {
 
 func (impact *Impact) Init(nImpactID, conAttTimes, nRound, nSkillID int, pCaster, pHolder *FightObject) bool {
 	impact.impactID = nImpactID
-	impact.pHolder = pCaster
+	impact.pHolder = pHolder
 	impact.pCaster = pCaster
 	impact.skillID = nSkillID
 	impact.startTime = nRound
@@ -61,23 +61,19 @@ func (impact *Impact) Init(nImpactID, conAttTimes, nRound, nSkillID int, pCaster
 		return false
 	}
 	switch pRow.LogicID {
-	case EmImpactLogic0:
-	case EmImpactLogic1:
-	case EmImpactLogic6:
+	case EmImpactLogic0, EmImpactLogic1, EmImpactLogic6:
 		if conAttTimes > 0 {
 			impact.conAttTimes = conAttTimes
 		}
 		break
-	case EmImpactLogic2:
-	case EmImpactLogic3:
+	case EmImpactLogic2,EmImpactLogic3:
 		//2=物理持续攻击
 		//逻辑参数3：持续时间，单位回合（10）
 		//逻辑参数4：生效间隔，单位回合（2）
 		impact.life += pRow.Param[2] - pRow.Param[3]
 		impact.term = pRow.Param[3]
 		break
-	case EmImpactLogic4:
-	case EmImpactLogic5:
+	case EmImpactLogic4,EmImpactLogic5:
 		//逻辑参数3：持续时间，单位回合（10）
 		impact.life += pRow.Param[2] - 1
 		break
@@ -569,7 +565,8 @@ func (impact *Impact) HeartBeat(uTime int) bool {
 			panic(err)
 		}
 		if pRow.LogicID >= 0 && pRow.LogicID < EmImpactLogicCount {
-			impact.LogicFuncArray[pRow.LogicID]()
+			logicFunc := impact.LogicFuncArray[pRow.LogicID]
+			logicFunc()
 		}
 	}
 

@@ -1,8 +1,6 @@
 package GameFight
 
 import (
-	"bytes"
-	"encoding/json"
 	"fmt"
 )
 
@@ -95,6 +93,11 @@ type ImpactInfo struct {
 	Mp          [MaxMatrixCellCount]int //本次技能带给的魔法量变化 >0 减蓝 < 0 加蓝
 }
 
+func (impact ImpactInfo) String() string {
+	return fmt.Sprintf("技能：%+v, impactId: %+v, 目标列表:%+v,伤害:%+v,ConAttTimes:%+v,Mp:%+v \n",
+		impact.SkillID, impact.ImpactID, impact.TargetList, impact.Hurts, impact.ConAttTimes, impact.Mp)
+}
+
 func (impact ImpactInfo) GetTargetIndex(targetGuid X_GUID) int {
 	if !targetGuid.IsValid() {
 		return InvalidId
@@ -121,16 +124,11 @@ type SkillAttack struct {
 }
 
 func (s *SkillAttack) String() string {
-	b, err := json.Marshal(*s)
-	if err != nil {
-		return fmt.Sprintf("%+v", *s)
+	impactString := ""
+	for i := 0; i < s.ImpactCount; i++ {
+		impactString += s.Impact[i].String()
 	}
-	var out bytes.Buffer
-	err = json.Indent(&out, b, "", "    ")
-	if err != nil {
-		return fmt.Sprintf("%+v", *s)
-	}
-	return out.String()
+	return fmt.Sprintf("技能:%+v 命中目标%+v, Impact数量%+v\n, Impact信息:%+v", s.SkillID, s.SkillTarget, s.ImpactCount, impactString)
 }
 func (s *SkillAttack) AddImpactInfo(info *ImpactInfo) {
 	s.Impact[s.ImpactCount] = info
@@ -166,14 +164,19 @@ type AttackInfo struct {
 }
 
 func (c AttackInfo) String() string {
+	skillAttackString := ""
+	for i := 0; i < c.SkillAttackCount; i++ {
+		skillAttackString += c.SkillAttack[i].String()
+	}
 	return fmt.Sprintf("攻击方英雄id: %+v  防守方英雄id: %+v, \n"+
 		"是否使用了技能攻击 %+v,"+
 		"是否命中:%+v,"+
 		"是否暴击:%+v,\n"+
 		"攻击伤害:%+v, "+
 		"是否有反击:%+v, "+
-		"反击伤害:%+v\n",
-		c.CastGuid, c.SkillTarget, c.Skilled, c.BHit, c.BStrike, c.Hurt, c.BBackAttack, c.BackAttackHurt)
+		"反击伤害:%+v\n"+
+		"技能攻击信息:%+v \n",
+		c.CastGuid, c.SkillTarget, c.Skilled, c.BHit, c.BStrike, c.Hurt, c.BBackAttack, c.BackAttackHurt, skillAttackString)
 }
 
 func (c *AttackInfo) GetSkillAttack(SkillID int) *SkillAttack {
@@ -199,10 +202,12 @@ func (c *AttackInfo) CleanUp() {
 
 func (c *AttackInfo) AllocSkillAttack() *SkillAttack {
 	if c.SkillAttackCount >= MaxEquipNumPerHero {
+		fmt.Println("超过最大携带数量")
 		return nil
 	}
 	index := c.SkillAttackCount
 	c.SkillAttackCount += 1
+	c.SkillAttack[index] = new(SkillAttack)
 	return c.SkillAttack[index]
 }
 
@@ -267,11 +272,11 @@ type FightRoundInfo struct {
 
 func (f *FightRoundInfo) String() string {
 
-	var s string = "攻击方战前信息:\n"
+	var s string = "攻击方信息:\n"
 	for i := 0; i < f.AttackObjectCount; i++ {
 		s += f.AttackObjectInfo[i].String() + ""
 	}
-	s += "防守方战前信息:\n"
+	s += "防守方信息:\n"
 	for i := 0; i < f.DefendObjectCount; i++ {
 		s += f.DefendObjectInfo[i].String() + ""
 	}

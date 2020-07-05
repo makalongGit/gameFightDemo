@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9c5b90d4-5ecf-4020-8ff5-ba46292b8809" name="Default Changelist" comment="" />
+    <list default="true" id="9c5b90d4-5ecf-4020-8ff5-ba46292b8809" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FightCell.go" beforeDir="false" afterPath="$PROJECT_DIR$/FightCell.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FightObject.go" beforeDir="false" afterPath="$PROJECT_DIR$/FightObject.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Fight_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/Fight_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameDefine.go" beforeDir="false" afterPath="$PROJECT_DIR$/GameDefine.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameStruct.go" beforeDir="false" afterPath="$PROJECT_DIR$/GameStruct.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Impact.go" beforeDir="false" afterPath="$PROJECT_DIR$/Impact.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Skill.go" beforeDir="false" afterPath="$PROJECT_DIR$/Skill.go" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +33,7 @@
   <component name="GOROOT" path="C:\Go" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
   <component name="GoLibraries">
     <option name="indexEntireGoPath" value="false" />
@@ -36,11 +46,11 @@
     <property name="configurable.Global.GOPATH.is.expanded" value="true" />
     <property name="configurable.Project.GOPATH.is.expanded" value="true" />
     <property name="go.import.settings.migrated" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="D:/Git/bin/git.exe" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="go.autoimport" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -60,7 +70,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Test.TestFightCell_Fight in GameFight (2)">
+  <component name="RunManager" selected="Go Test.TestFightCell_Fight in GameFight (3)">
     <configuration name="TestFightCell_Fight in GameFight (1)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="GameFight" />
       <working_directory value="$PROJECT_DIR$" />
@@ -83,6 +93,17 @@
       <pattern value="^TestFightCell_Fight$" />
       <method v="2" />
     </configuration>
+    <configuration name="TestFightCell_Fight in GameFight (3)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="GameFight" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="GameFight" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestFightCell_Fight$" />
+      <method v="2" />
+    </configuration>
     <configuration name="TestFightCell_Fight in GameFight" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="GameFight" />
       <working_directory value="$PROJECT_DIR$" />
@@ -94,18 +115,7 @@
       <pattern value="^TestFightCell_Fight$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestReadHeroAttrCsv in GameFight/Table" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="GameFight" />
-      <working_directory value="$PROJECT_DIR$/Table" />
-      <framework value="gotest" />
-      <kind value="PACKAGE" />
-      <package value="GameFight/Table" />
-      <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestReadHeroAttrCsv$" />
-      <method v="2" />
-    </configuration>
-    <configuration name="TestX_GUID_IsValid in GameFight" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestFuncInArr in GameFight" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="GameFight" />
       <working_directory value="$PROJECT_DIR$" />
       <framework value="gotest" />
@@ -113,16 +123,16 @@
       <package value="GameFight" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestX_GUID_IsValid$" />
+      <pattern value="^TestFuncInArr$" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.TestFightCell_Fight in GameFight (3)" />
+        <item itemvalue="Go Test.TestFuncInArr in GameFight" />
         <item itemvalue="Go Test.TestFightCell_Fight in GameFight (2)" />
         <item itemvalue="Go Test.TestFightCell_Fight in GameFight (1)" />
         <item itemvalue="Go Test.TestFightCell_Fight in GameFight" />
-        <item itemvalue="Go Test.TestX_GUID_IsValid in GameFight" />
-        <item itemvalue="Go Test.TestReadHeroAttrCsv in GameFight/Table" />
       </list>
     </recent_temporary>
   </component>
@@ -134,7 +144,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
@@ -148,11 +160,21 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/Fight_test.go</url>
-          <line>33</line>
-          <option name="timeStamp" value="2" />
+          <url>file://$PROJECT_DIR$/Impact.go</url>
+          <line>435</line>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/Skill.go</url>
+          <line>429</line>
+          <option name="timeStamp" value="23" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="GoTestRunConfiguration">
+        <watch expression="pSkillAttack.Impact" language="go" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>
